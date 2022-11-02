@@ -3,16 +3,16 @@
 # file: english_spellchecker.rb
 
 
-require 'wordsdotdat'
+require 'words2dotdat'
 require 'did_you_mean'
 
 
 class EnglishSpellcheck
   
-  @words = WordsDotDat.words
+  @words = Words2DotDat.words
 
   def initialize()
-    @words = WordsDotDat.words
+    @words = Words2DotDat.words
     @spelling = DidYouMean::SpellChecker.new(dictionary: @words)
   end
 
