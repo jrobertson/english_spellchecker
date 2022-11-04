@@ -11,9 +11,14 @@ class EnglishSpellcheck
   
   @words = Words2DotDat.words
 
-  def initialize()
+  def initialize(debug: false)
+    
+    @debug = debug
     @words = Words2DotDat.words
-    @spelling = DidYouMean::SpellChecker.new(dictionary: @words)
+    @spelling = ('a'..'z').map do |c|
+      DidYouMean::SpellChecker.new(dictionary: @words.select {|x| x[0] == c})
+    end
+    
   end
 
   def self.spell(raww, verbose: true)
@@ -21,7 +26,8 @@ class EnglishSpellcheck
     w = raww.downcase
     
     return raww  if @words.include? w
-    r = DidYouMean::SpellChecker.new(dictionary: @words).correct(w)
+    list = @words.select {|x| x[0] == w[0]}
+    r = DidYouMean::SpellChecker.new(dictionary: list).correct(w)
     
     if r.any? then
       
@@ -60,7 +66,9 @@ class EnglishSpellcheck
     w = raww.downcase
     
     return raww  if @words.include? w
-    r = @spelling.correct w
+    c = w[0].ord - 97
+    puts 'c: ' + c.inspect if @debug
+    r = @spelling[c].correct w
     
     if r.any? then
       

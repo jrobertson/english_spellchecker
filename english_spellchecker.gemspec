@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'english_spellchecker'
-  s.version = '0.3.0'
+  s.version = '0.3.1'
   s.summary = 'A basic English dictionary spellchecker which returns ' + 
       ' the correctly spelled word or nil if the word was not found.'
   s.authors = ['James Robertson']
